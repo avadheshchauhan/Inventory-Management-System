@@ -1,52 +1,23 @@
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModel');
-const gererateToken = require('../util/generateToken');
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
+const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+const app = express();
+app.use(cors());
+connectDB();
+app.use(express.json());
 
-  const userExists = await User.findOne({ email });
+const PORT = process.env.PORT || 5000;
 
-  if (userExists) {
-    res.status(400);
-    throw new Error('User Already Exists!!!');
-  }
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-  });
-
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: gererateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error('Error Occured!!!');
-  }
+app.get('/', (req, res) => {
+  res.send('API is running!!!');
 });
 
-const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+app.use('/users', userRoutes);
 
-  const user = await User.findOne({ email });
+app.use(notFound);
+app.use(errorHandler);
 
-  if (email && (await user.matchPassword(password))) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: gererateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error('Invalid Email or Password!!');
-  }
-});
-
-module.exports = { registerUser, authUser };
+app.listen(PORT, console.log(`App is running at port ${PORT}`));
