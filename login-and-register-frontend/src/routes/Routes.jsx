@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import Homepage from '../pages/homepage/Homepage';
-import LoginPage from '../pages/loginpage/Loginpage';
-import RegisterPage from '../pages/registerpage/Registerpage';
-import User from '../pages/user';
+import Homepage from '../pages/Homepage/Homepage';
+import Loginpage from '../pages/Loginpage/Loginpage';
+import Registerpage from '../pages/Registerpage/Registerpage';
+import User from '../pages/UserPage/user';
 import style from './Routes.module.css';
 
 const RouterPage = () => {
@@ -10,8 +10,8 @@ const RouterPage = () => {
     <div className={style.body}>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<Loginpage />} />
+        <Route path="/register" element={<Registerpage />} />
         <Route path="/user" element={<User />} />
       </Routes>
     </div>

@@ -1,35 +1,55 @@
 import { Button, TextField, Typography } from '@mui/material';
-import style from './Loginpage.module.css';
+import style from './LoginForm.module.css';
 import { useState } from 'react';
 import axios from 'axios';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loading from '../Loading/Loading';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-  const [loginuser, setLoginuser] = useState({
-    email: '',
-    password: '',
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState('');
 
-  const onchangeHandler = (e) => {
-    const { name, value } = e.target;
-    setLoginuser({
-      ...loginuser,
-      [name]: value,
-    });
-  };
+  const navigate = useNavigate();
 
-  const loginHandler = () => {
-    const { email, password } = loginuser;
-    if (email && password) {
-      axios.post('', loginuser);
-      /*   .then((res)=>{
-                    console.log("user login succesfully",resp)
-                })*/
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    // console.log(email, password);
+
+    try {
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+        },
+      };
+
+      setLoading(true);
+
+      const { data } = await axios.post(
+        'http://localhost:5000/login',
+        {
+          email,
+          password,
+        },
+        config
+      );
+      console.log(data);
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      navigate('/user');
+      setLoading(false);
+    } catch (error) {
+      setError(error.response.data.message);
+      setLoading(false);
     }
   };
 
   return (
-    <>
-      <form className={style.route}>
+    <div>
+      {error && <ErrorMessage severity="error">{error}</ErrorMessage>}
+      {loading && <Loading />}
+      <form className={style.route} onSubmit={submitHandler}>
         <div className={style.form}>
           <Typography variant="h3">Login</Typography>
           <br />
@@ -39,8 +59,8 @@ const LoginForm = () => {
             type="email"
             color="secondary"
             name="email"
-            value={loginuser.email}
-            onChange={onchangeHandler}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your EmailId"
             fullWidth
             variant="outlined"
@@ -54,8 +74,8 @@ const LoginForm = () => {
             type="password"
             color="secondary"
             name="password"
-            value={loginuser.password}
-            onChange={onchangeHandler}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             fullWidth
             variant="outlined"
@@ -65,15 +85,14 @@ const LoginForm = () => {
           <Button
             size="large"
             sx={{ marginTop: '20px' }}
-            onClick={loginHandler}
             variant="contained"
+            type="submit"
           >
             Login
           </Button>
         </div>
       </form>
-      {console.log(loginuser)}
-    </>
+    </div>
   );
 };
 export default LoginForm;
