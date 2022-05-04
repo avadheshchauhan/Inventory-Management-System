@@ -11,11 +11,11 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-  res.send('API is running!!!');
-});
+// app.get('/', (req, res) => {
+//   res.send('API is running!!!');
+// });
 
-app.use('/users', userRoutes);
+app.use('/', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
