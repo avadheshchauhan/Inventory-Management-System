@@ -33,7 +33,7 @@ const LoginPage = ({setUser}) => {
                     // setUser(res.data)
                     if(res.status===200){
                         localStorage.setItem('userInfo', JSON.stringify(res.data.email))
-                        navigate("/")
+                        navigate("/dashboard")
                     }
                     
                 }).catch((err)=>{

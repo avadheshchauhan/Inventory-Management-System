@@ -22,51 +22,51 @@ const User = () => {
     }
 */
 
-    console.log(user.phoneNo)
-    const email= JSON.parse(localStorage.getItem("userInfo"))
-    useEffect(()=>{
-        const fetchdata=async()=>{
-            await axios.get(`http://localhost:4000/updateprofile/${email}`)
-            .then((res)=>{
-                console.log(res.data)
+   // console.log(user.phoneNo)
+    //const email= JSON.parse(localStorage.getItem("userInfo"))
+    // useEffect(()=>{
+    //     const fetchdata=async()=>{
+    //         await axios.get(`http://localhost:4000/updateprofile/${email}`)
+    //         .then((res)=>{
+    //             console.log(res.data)
                
-                setUser({fullname:res.data.fullname,
-                    email:res.data.email,
-                    address:res.data.address,
-                    mobileNo:res.data.mobileNo,
-                    phoneNo:res.data.phoneNo})
-            }).catch((err)=>{
-                console.log(err)
-            })
-        }
-        fetchdata();
-    },[email]) 
+    //             setUser({fullname:res.data.fullname,
+    //                 email:res.data.email,
+    //                 address:res.data.address,
+    //                 mobileNo:res.data.mobileNo,
+    //                 phoneNo:res.data.phoneNo})
+    //         }).catch((err)=>{
+    //             console.log(err)
+    //         })
+    //     }
+    //     fetchdata();
+    // },[email]) 
 
-    const updateHandler=()=>{
-        if(user){
-            console.log("...user",user)
-            var formData= new FormData();
-            // console.log("....",user.uploadedfile,"-------",user.uploadedfile.name)
-            //formData.append('uploadfile',user.uploadedfile,user.uploadedfile.name)
-            formData.append("fullname","abc")
-            formData.append("email",user.email)
-            formData.append("mobileNo",user.mobileNo)
-            formData.append("phoneNo",user.phoneNo)
-            formData.append("address",user.address)
-           // var options = { content: formData };
+//     const updateHandler=()=>{
+//         if(user){
+//             console.log("...user",user)
+//         //     var formData= new FormData();
+//         //     // console.log("....",user.uploadedfile,"-------",user.uploadedfile.name)
+//         //     //formData.append('uploadfile',user.uploadedfile,user.uploadedfile.name)
+//         //     formData.append("fullname","abc")
+//         //     formData.append("email",user.email)
+//         //     formData.append("mobileNo",user.mobileNo)
+//         //     formData.append("phoneNo",user.phoneNo)
+//         //     formData.append("address",user.address)
+//         //    // var options = { content: formData };
            
-             axios.post(`http://localhost:4000/updateprofile/${email}`,formData)
-            .then((res)=>{
-             localStorage.setItem('userInfo', JSON.stringify(res.data))
-               console.log(res.data)
-                 navigate("/user")
-             }).catch((err)=>{
-                 setError("User not found")
-                 console.log("error msg",err)
-             })
-        }
+//              axios.post(`http://localhost:4000/updateprofile/${email}`,user)
+//             .then((res)=>{
+//              localStorage.setItem('userInfo', JSON.stringify(res.data))
+//                console.log(res.data)
+//                  navigate("/user")
+//              }).catch((err)=>{
+//                  setError("User not found")
+//                  console.log("error msg",err)
+//              })
+//         }
         
- }
+//  }
     
    
 
@@ -88,7 +88,7 @@ const User = () => {
                 <TextField id="outlined-fullname"
                     label="Full Name"
                     name="fullname"
-                    value={user.fullname}
+                   // value={user.fullname}
                     type="text"
                     color="secondary"
                     onChange={onchangeHandler}
@@ -99,7 +99,7 @@ const User = () => {
                 <TextField id="outlined-fullname"
                     label="PhoneNumber"
                     name="phoneNo"
-                    value={user.phoneNo}
+                   // value={user.phoneNo}
                     type="text"
                     onChange={onchangeHandler}
                     color="secondary"
@@ -110,7 +110,7 @@ const User = () => {
                 <TextField id="outlined-fullname"
                     label="MobileNo"
                     name="mobileNo"
-                    value={user.mobileNo}
+                   // value={user.mobileNo}
                     onChange={onchangeHandler}
                     type="text"
                     color="secondary"
@@ -121,7 +121,7 @@ const User = () => {
                 <TextField id="outlined-fullname"
                     label="Email"
                     name="email"
-                    value={user.email}
+                  //  value={user.email}
                     onChange={onchangeHandler}
                     type="text"
                     color="secondary"
@@ -132,7 +132,7 @@ const User = () => {
                 <TextField id="outlined-fullname"
                     label="Address"
                     name="address"
-                    value={user.address}
+                   // value={user.address}
                     onChange={onchangeHandler}
                     type="text"
                     color="secondary"
@@ -144,7 +144,7 @@ const User = () => {
                 <input type="file"     name="uploadfile"/>
                 </div>
 
-                <Button size="large" sx={{ marginTop: "20px" }}  onClick={updateHandler} variant="contained">UpdateProfile</Button>
+                <Button size="large" sx={{ marginTop: "20px" }}   variant="contained">UpdateProfile</Button>
             </form>
         </div>
 

@@ -28,10 +28,10 @@ const RegisterPage = () => {
         if (email && fullname && password) {
             axios.post("http://localhost:4000/register", user)
                 .then((res)=>{
-                    if(res.status===2000){
+                    if(res.status===200){
                         console.log(res.status,".....")
                         console.log(res.data.msg)
-                        navigate("/user")
+                        navigate("/dashboard")
                     }
                   
 
