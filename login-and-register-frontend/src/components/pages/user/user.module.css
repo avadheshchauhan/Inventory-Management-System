@@ -1,0 +1,30 @@
+
+
+.form{
+  margin-top: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.bodyform{
+  margin:auto;
+  margin-bottom:100px;
+  margin-top: 100px;
+  border:2px solid whitesmoke;
+  border-radius:10px;
+  width:500px;
+  height:auto;
+ 
+  
+  background-color:white;
+  justify-content: center;
+  align-items: center;
+}
+.img{
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  background: #fef289;
+  border-radius: 50%;
+}

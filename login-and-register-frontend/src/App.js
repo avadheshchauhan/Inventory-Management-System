@@ -1,12 +1,14 @@
 import './App.css';
 //import Homepage from './components/pages/homepage/Homepage';
-import Header from './components/pages/../header/Header';
-import RouterPage from './routes/Routes';
+import RouterPage from './components/routes/Routes';
+import HeaderPage from './components/pages/../header/Header'
 function App() {
+  
   return (
     <div className="App">
-      <Header />
-      <RouterPage />
+    
+      <HeaderPage/> 
+     <RouterPage/>
     </div>
   );
 }
