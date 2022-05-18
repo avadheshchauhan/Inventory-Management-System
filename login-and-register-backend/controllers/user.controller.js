@@ -4,23 +4,23 @@ const gererateToken = require('../util/generateToken');
 
 const registerUser = asyncHandler(async (req, res) => {
   const { fullname, email, password } = req.body;
-    console.log(req.body)
+  console.log(req.body)
   const userExists = await User.findOne({ email });
 
   if (userExists) {
     res.status(400);
     throw new Error('User Already Exists!!!');
-  }else{
+  } else {
     const user = await User.create({
-      fullname:fullname,
-      email:email,
-      password:password
+      fullname: fullname,
+      email: email,
+      password: password
     });
-  
+
     if (user) {
-      res.status(201).json({
+      res.status(201).send({
         _id: user._id,
-        name: user.fullname,
+        fullname: user.fullname,
         email: user.email,
         token: gererateToken(user._id),
       });
@@ -28,11 +28,12 @@ const registerUser = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error('Error Occured!!!');
     }
-  
-    
-  }})
 
-  
+
+  }
+})
+
+
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -40,7 +41,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (email && (await user.matchPassword(password))) {
-    res.json({
+    res.status(201).send({
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
