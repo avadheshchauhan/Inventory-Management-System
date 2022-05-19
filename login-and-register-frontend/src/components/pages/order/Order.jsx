@@ -15,6 +15,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 import useFetchInventory from "../../../hooks/useFetchInventory";
+import useOrder from "../../../hooks/useOrder";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,10 +38,10 @@ function getStyles(name, prodName, theme) {
 }
 const Order = () => {
   const theme = useTheme();
-  const [prodName, setprodName] = React.useState();
-  const [product, setProduct] = React.useState([]);
+  // const [prodName, setprodName] = React.useState();
   const [price, setPrice] = React.useState();
   const [quantity, setQuantity] = React.useState();
+  const [error, setError] = React.useState();
   const [ordetails, setOrdetails] = React.useState({
     firstname: "",
     lastname: "",
@@ -48,46 +49,67 @@ const Order = () => {
     email: "",
     phoneno: "",
     address: "",
-    product: "",
-    quantity: "",
-    totalPrice: "",
+    productName: "",
   });
 
   const { data } = useFetchInventory();
+  const { order, status } = useOrder();
 
   const quantityHandleChange = (e) => {
     setQuantity(e.target.value);
     console.log(e.target.value);
     data.map((list) => {
       if (
-        list.productname === prodName &&
+        list.productname === ordetails.productName &&
         e.target.value < list.totalQuantity
       ) {
         setPrice(list.price * e.target.value);
+        setError(" ");
       } else {
+        setError("out of stock");
         console.log("out of stock");
       }
     });
   };
-
+  // console.log(price, quantity, "..........................................");
   //getting list of product
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setprodName(value);
-  };
+  // const handleChange = (event) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setprodName(value);
+  // };
 
   const orderHandleChange = (e) => {
     const { name, value } = e.target;
+
     setOrdetails({
       ...ordetails,
-      [value]: value,
+      [name]: value,
     });
   };
+
+  const orderplaceHandler = (ordetails, price, quantity, e) => {
+    e.preventDefault();
+
+    order(ordetails, price, quantity);
+    setOrdetails({
+      firstname: "",
+      lastname: "",
+      date: "",
+      email: "",
+      phoneno: "",
+      address: "",
+      productName: "",
+    });
+    setPrice("");
+    setQuantity("");
+  };
+
   return (
     <div>
+      {/* // {status ?} */}
       <Grid>
         <Card style={{ padding: "20px 5px", margin: "0 auto" }}>
           <CardContent>
@@ -95,7 +117,9 @@ const Order = () => {
               Order Details
             </Typography>
 
-            <form>
+            <form
+              onSubmit={(e) => orderplaceHandler(ordetails, price, quantity, e)}
+            >
               <Grid container spacing={1}>
                 <Grid xs={12} sm={6} item>
                   <TextField
@@ -138,7 +162,7 @@ const Order = () => {
                 <Grid item xs={12}>
                   <TextField
                     type="number"
-                    name=" phoneno"
+                    name="phoneno"
                     value={ordetails.phoneno}
                     placeholder="Enter phone number"
                     onChange={orderHandleChange}
@@ -181,8 +205,9 @@ const Order = () => {
                     <Select
                       labelId="demo-multiple-name-label"
                       id="demo-multiple-name"
-                      value={product.productname}
-                      onChange={handleChange}
+                      name="productName"
+                      value={ordetails.productName}
+                      onChange={orderHandleChange}
                       input={<OutlinedInput label="Name" />}
                       MenuProps={MenuProps}
                     >
@@ -208,6 +233,7 @@ const Order = () => {
                     fullWidth
                     required
                   />
+                  <small>{error}</small>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
