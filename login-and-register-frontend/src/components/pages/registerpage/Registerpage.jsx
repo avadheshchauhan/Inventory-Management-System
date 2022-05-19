@@ -28,7 +28,7 @@ const RegisterPage = () => {
       axios
         .post("http://localhost:5000/register", user)
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === 201) {
             console.log(res.status, ".....");
             console.log(res.data.msg);
             navigate("/dashboard");

@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 
 const HeaderPage = () => {
     const location = useLocation()
+    
     console.log(location.pathname);
     return (
         <>
