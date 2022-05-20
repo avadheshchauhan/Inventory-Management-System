@@ -55,6 +55,7 @@ const Inventory = () => {
 
   //adding the stockHandler
   const addProductHandler = (e) => {
+    console.log(product);
     e.preventDefault();
     addProduct(product);
     setProduct({
@@ -133,7 +134,7 @@ const Inventory = () => {
               <StyledTableCell align="left">Delete</StyledTableCell>
             </TableRow>
           </TableHead>
-          {loading ? (
+          {false ? (
             <p>Loading...</p>
           ) : error ? (
             <p>{error}</p>

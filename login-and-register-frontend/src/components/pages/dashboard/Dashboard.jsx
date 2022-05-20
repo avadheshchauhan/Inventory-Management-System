@@ -5,6 +5,7 @@ import useFetchInventory from "../../../hooks/useFetchInventory";
 import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import useOrder from "../../../hooks/useOrder";
+import Barchart from "./barchart";
 
 const theme = createTheme({
   palette: {
@@ -117,6 +118,7 @@ const DashBoard = () => {
           }}
         ></Chart>
       </div>
+      <Barchart/>
     </div>
   );
 };

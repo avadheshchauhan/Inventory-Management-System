@@ -1,6 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const stockInfo = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   productname: {
     type: String,
     required: true,
@@ -9,7 +13,6 @@ const stockInfo = mongoose.Schema({
   quantity: {
     type: Number,
     required: true,
-
   },
   price: {
     type: Number,
@@ -17,14 +20,11 @@ const stockInfo = mongoose.Schema({
   },
   totalprice: {
     type: Number,
-
   },
   totalQuantity: {
     type: Number,
-
   },
-})
-const StockInfo = mongoose.model('StockInfo', stockInfo);
+});
+const StockInfo = mongoose.model("StockInfo", stockInfo);
 
 module.exports = StockInfo;
-

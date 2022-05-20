@@ -3,10 +3,12 @@ import style from "./Registerpage.module.css";
 import { useState } from "react";
 import axios from "axios";
 import { Outlet, useNavigate } from "react-router-dom";
+import useUser from "../../../hooks/useUser";
 
 const RegisterPage = () => {
   let navigate = useNavigate();
   const [error, setError] = useState();
+  const { registeruser } = useUser();
   const [user, setUser] = useState({
     fullname: "",
     email: "",
@@ -21,28 +23,20 @@ const RegisterPage = () => {
     });
   };
 
-  const RegisterHandler = () => {
-    const { fullname, email, password } = user;
-    console.log(user);
-    if (email && fullname && password) {
-      axios
-        .post("http://localhost:5000/register", user)
-        .then((res) => {
-          if (res.status === 201) {
-            console.log(res.status, ".....");
-            console.log(res.data.msg);
-            navigate("/dashboard");
-          }
-        })
-        .catch((err) => {
-          setError("User already exist");
-          console.log("error msg", err);
-        });
+  const RegisterHandler = (user, e) => {
+    e.preventDefault();
+    if (user.email && user.fullname && user.password) {
+      registeruser(user);
     }
   };
   return (
     <>
-      <form className={style.form}>
+      <form
+        className={style.form}
+        onSubmit={(e) => {
+          RegisterHandler(user, e);
+        }}
+      >
         <div className={style.body}>
           <Typography variant="h3" sx={{ margin: "20px" }}>
             {" "}
@@ -96,7 +90,7 @@ const RegisterPage = () => {
 
           <Button
             size="large"
-            onClick={RegisterHandler}
+            type="submit"
             sx={{ marginTop: "20px" }}
             variant="contained"
           >

@@ -10,11 +10,11 @@ const {
   customerinfo,
 } = require("../controllers/ordercontroller");
 const router = express.Router();
-
+const protect = require("../middlewares/protectMiddleware");
 router.post("/register", registerUser);
 router.post("/login", authUser);
 router.post("/addstock", addStock);
-router.get("/stockinfo", stocklist);
+router.get("/stockinfo", protect, stocklist);
 router.delete("/deletestock/:id", deleteProduct);
 router.post("/orderplaced", receivedorder);
 router.get("/orderlist", customerinfo);
