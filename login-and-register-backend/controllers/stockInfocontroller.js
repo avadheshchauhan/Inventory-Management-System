@@ -1,10 +1,9 @@
-const { query } = require("express");
 const StockInfo = require("../models/stockInfo");
+const user = require("../models/userModel");
 
 //adding the stock
 
 const addStock = async (req, res) => {
- 
   try {
     const { productname, price, quantity } = req.body;
     console.log(req, "0....................................................");
@@ -43,7 +42,7 @@ const addStock = async (req, res) => {
         productname: productname,
         quantity: quantity,
         price: price,
-        user: req.user._id,
+        user: req.user.id,
         totalQuantity: quantity,
         totalprice: parseInt(price) * parseInt(quantity),
       });
@@ -71,7 +70,7 @@ const addStock = async (req, res) => {
 
 const stocklist = async (req, res) => {
   try {
-    const Stock = await StockInfo.find({ user: req.user._id });
+    const Stock = await StockInfo.find({ user: req.user.id });
     res.send(Stock);
   } catch (err) {
     res.send({ msg: err });

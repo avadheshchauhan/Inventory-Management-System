@@ -13,7 +13,7 @@ const router = express.Router();
 const protect = require("../middlewares/protectMiddleware");
 router.post("/register", registerUser);
 router.post("/login", authUser);
-router.post("/addstock", addStock);
+router.post("/addstock", protect, addStock);
 router.get("/stockinfo", protect, stocklist);
 router.delete("/deletestock/:id", deleteProduct);
 router.post("/orderplaced", receivedorder);

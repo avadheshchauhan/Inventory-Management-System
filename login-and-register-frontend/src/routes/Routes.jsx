@@ -22,9 +22,30 @@ const RouterPage = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="user" element={<User />} />
-        <Route path="customer" element={<Customer />} />
-        <Route path="order" element={<Order />} />
+        <Route
+          path="user"
+          element={
+            <ProtectedRoute token={localStorage.getItem("token")}>
+              <User />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customer"
+          element={
+            <ProtectedRoute token={localStorage.getItem("token")}>
+              <Customer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="order"
+          element={
+            <ProtectedRoute token={localStorage.getItem("token")}>
+              <Order />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="inventory"
           element={
@@ -33,7 +54,14 @@ const RouterPage = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="dashboard" element={<DashBoard />} />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute token={localStorage.getItem("token")}>
+              <DashBoard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

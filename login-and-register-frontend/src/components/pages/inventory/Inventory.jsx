@@ -52,7 +52,7 @@ const Inventory = () => {
       [name]: value,
     });
   };
-
+console.log(data,"💕💕💕");
   //adding the stockHandler
   const addProductHandler = (e) => {
     console.log(product);

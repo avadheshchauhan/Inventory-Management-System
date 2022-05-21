@@ -7,13 +7,20 @@ const useFetchInventory = () => {
   const [error, setError] = useState(null);
   const [getproduct, setGetproduct] = useState(false);
 
+  const token = localStorage.getItem("token");
+
   //getting the stock information
   useEffect(() => {
     setLoading(true);
     try {
+      console.log(token);
       const fetchData = async () => {
-        const res = await axios.get("http://localhost:5000/stockinfo");
+        const res = await axios.get("http://localhost:5000/stockinfo", {
+          headers: { Authorization: `${token}` },
+        });
+        console.log(res);
         setData(res.data);
+        console.log(data, "......");
         setLoading(false);
       };
       fetchData();
@@ -24,11 +31,16 @@ const useFetchInventory = () => {
     }
   }, [getproduct]);
 
+  //adding the inventory
+
   const addProduct = (product) => {
+    console.log(product);
     //   setLoading(true)
     try {
-      const fetchData = async (e) => {
-        const res = await axios.post("http://localhost:5000/addstock", product);
+      const fetchData = async () => {
+        axios.post("http://localhost:5000/addstock", product, {
+          headers: { authorization: `${token}` },
+        });
         //   if(res.success){
         const newData = [...data];
         setGetproduct((prev) => !prev);
@@ -44,6 +56,8 @@ const useFetchInventory = () => {
       // setLoading(false)
     }
   };
+
+  //Delete the inventory
   const deleteProduct = (index) => {
     try {
       const fetchData = async (e) => {
