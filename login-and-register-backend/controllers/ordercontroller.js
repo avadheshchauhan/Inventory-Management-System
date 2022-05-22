@@ -38,9 +38,11 @@ const receivedorder = async (req, res) => {
           const newQuantity =
             parseInt(productExist.totalQuantity) -
             parseInt(orderreceived.quantity);
+          const newPrice= parseInt(productExist.totalprice) -
+          parseInt(orderreceived.totalprice);
             await StockInfo.updateOne(
             { productname: req.body.ordetails.productName },
-            { $set: { totalQuantity: newQuantity } }
+            { $set: { totalQuantity: newQuantity,totalprice:newPrice } }
           );
         } else {
           res.status(400);
@@ -59,7 +61,8 @@ const receivedorder = async (req, res) => {
 const customerinfo = async (req, res) => {
     try {
         const orderlist = await OrderDetails.find({user:req.user.id})
-        res.satus(201).send(orderlist)
+        console.log(orderlist,".....orderlist")
+        res.status(201).send(orderlist)
     }
     catch (err) {
         res.send({ msg: err })

@@ -80,11 +80,18 @@ const stocklist = async (req, res) => {
 //Delete the stock Prouduct
 const deleteProduct = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  console.log(req.user.id,"user id ....................")
+  const findproduct= await StockInfo.findById({_id:id})
+  console.log(findproduct);
   try {
-    const stock = await StockInfo.deleteOne({ _id: id });
+    console.log(findproduct.user,"user sucesss...................")
+    console.log(findproduct.user.toString()===req.user.id,"true.........................")
+    if(req.user.id === findproduct.user.toString()){
+      const stock = await StockInfo.deleteOne({ _id: id });
     console.log(stock);
-    res.send("deletee successfully");
+    res.status(201).send("deletee successfully");
+    }
+    
   } catch (err) {
     res.status(401).send(err);
   }

@@ -15,7 +15,7 @@ router.post("/register", registerUser);
 router.post("/login", authUser);
 router.post("/addstock", protect, addStock);
 router.get("/stockinfo", protect, stocklist);
-router.delete("/deletestock/:id", deleteProduct);
+router.delete("/deletestock/:id", protect,deleteProduct);
 router.post("/orderplaced",protect, receivedorder);
 router.get("/orderlist", protect,customerinfo);
 

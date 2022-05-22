@@ -71,11 +71,16 @@ const useFetchInventory = () => {
       const fetchData = async (e) => {
         const id = data[index]._id;
         const res = await axios.delete(
-          `http://localhost:5000/deletestock/${id}`
+          `http://localhost:5000/deletestock/${id}`,{
+            headers: { authorization: `${token}` }
+          }
         );
-        const filter = [...data];
-        filter.splice(index, 1);
-        setData(filter);
+        if(res.status===201){
+          const filter = [...data];
+          filter.splice(index, 1);
+          setData(filter);
+        }
+        
       };
       fetchData();
     } catch (error) {
