@@ -16,7 +16,7 @@ router.post("/login", authUser);
 router.post("/addstock", protect, addStock);
 router.get("/stockinfo", protect, stocklist);
 router.delete("/deletestock/:id", deleteProduct);
-router.post("/orderplaced", receivedorder);
-router.get("/orderlist", customerinfo);
+router.post("/orderplaced",protect, receivedorder);
+router.get("/orderlist", protect,customerinfo);
 
 module.exports = router;

@@ -16,12 +16,15 @@ const useFetchInventory = () => {
       console.log(token);
       const fetchData = async () => {
         const res = await axios.get("http://localhost:5000/stockinfo", {
-          headers: { Authorization: `${token}` },
+          headers: { authorization: `${token}` },
         });
         console.log(res);
-        setData(res.data);
-        console.log(data, "......");
-        setLoading(false);
+        if(res.status===201){
+          setData(res.data);
+          console.log(data, "......");
+          setLoading(false);
+        }
+        
       };
       fetchData();
     } catch (error) {
@@ -38,14 +41,19 @@ const useFetchInventory = () => {
     //   setLoading(true)
     try {
       const fetchData = async () => {
-        axios.post("http://localhost:5000/addstock", product, {
+        const res= await axios.post("http://localhost:5000/addstock", product, {
           headers: { authorization: `${token}` },
         });
+        console.log(res)
         //   if(res.success){
-        const newData = [...data];
-        setGetproduct((prev) => !prev);
-        newData.push(product);
-        setData(newData);
+          console.log( res.status)
+        // const newData = [...data];
+        if(res.status===201){
+          setGetproduct((prev) => !prev);
+
+        }
+        // newData.push(product);
+        // setData(newData);
         //   }
         //   setLoading(false)
       };

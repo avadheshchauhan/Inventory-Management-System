@@ -5,11 +5,9 @@ const OrderDetails = require("../models/ordermodel");
 
 const receivedorder = async (req, res) => {
   try {
-    //const customerExist = await OrderDetails.findOne({ email });
     const productExist = await StockInfo.findOne({
       productname: req.body.ordetails.productName,
     });
-    console.log(productExist);
     if (productExist) {
       try {
         const orderreceived = await OrderDetails.create({
@@ -21,6 +19,7 @@ const receivedorder = async (req, res) => {
           firstname: req.body.ordetails.firstname,
           lastname: req.body.ordetails.lastname,
           date: req.body.ordetails.date,
+          user:req.user.id,
           address: req.body.ordetails.address,
         });
 
@@ -39,7 +38,7 @@ const receivedorder = async (req, res) => {
           const newQuantity =
             parseInt(productExist.totalQuantity) -
             parseInt(orderreceived.quantity);
-          await StockInfo.updateOne(
+            await StockInfo.updateOne(
             { productname: req.body.ordetails.productName },
             { $set: { totalQuantity: newQuantity } }
           );
@@ -59,8 +58,8 @@ const receivedorder = async (req, res) => {
 //all order received 
 const customerinfo = async (req, res) => {
     try {
-        const orderlist = await OrderDetails.find()
-        res.send(orderlist)
+        const orderlist = await OrderDetails.find({user:req.user.id})
+        res.satus(201).send(orderlist)
     }
     catch (err) {
         res.send({ msg: err })

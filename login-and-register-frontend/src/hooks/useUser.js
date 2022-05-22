@@ -13,7 +13,7 @@ const useUser = () => {
         );
         if (user.status === 201) {
           setUserinfo(user.data);
-          navigate("/dashboard");
+          navigate("/login");
         }
       };
       register();

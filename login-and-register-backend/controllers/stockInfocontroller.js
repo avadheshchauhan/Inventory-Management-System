@@ -25,6 +25,7 @@ const addStock = async (req, res) => {
                 productname: productname,
                 quantity: quantity,
                 price: price,
+                user: req.user.id,
                 totalprice: totPrice,
                 totalQuantity: totQuantity,
               },
@@ -71,7 +72,7 @@ const addStock = async (req, res) => {
 const stocklist = async (req, res) => {
   try {
     const Stock = await StockInfo.find({ user: req.user.id });
-    res.send(Stock);
+    res.status(201).send(Stock);
   } catch (err) {
     res.send({ msg: err });
   }

@@ -4,6 +4,7 @@ import axios from "axios";
 const useOrder = () => {
   const [customerDetails, setCustomerDetails] = useState([]);
   //const[status,setStatus]=useState(false)
+  const token = localStorage.getItem("token");
 
   const order = (ordetails, price, quantity) => {
     try {
@@ -12,7 +13,7 @@ const useOrder = () => {
           ordetails: ordetails,
           price: price,
           quantity: quantity,
-        });
+        },{ headers: { authorization: `${token}` }})
         //  if(res.status===201){
         //      setStatus(true)
         //  }
@@ -31,8 +32,12 @@ const useOrder = () => {
     //setLoading(true)
     try {
       const fetchData = async () => {
-        const res = await axios.get("http://localhost:5000/orderlist");
-        setCustomerDetails(res.data);
+        const res = await axios.get("http://localhost:5000/orderlist",{headers: { authorization: `${token}` }});
+        console.log(res,'........customer details')
+        if(res.status===201){
+          setCustomerDetails(res.data);
+
+        }
         // setLoading(false)
       };
       fetchData();
