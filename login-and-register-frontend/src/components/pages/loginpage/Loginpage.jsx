@@ -78,6 +78,7 @@ const LoginPage = ({ setUser }) => {
           </Button>
           <p>{error}</p>
         </div>
+        <input/>
       </form>
       {console.log(loginuser)}
     </>

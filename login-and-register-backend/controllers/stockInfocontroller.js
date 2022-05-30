@@ -6,11 +6,9 @@ const user = require("../models/userModel");
 const addStock = async (req, res) => {
   try {
     const { productname, price, quantity } = req.body;
-    console.log(req, "0....................................................");
     const productExist = await StockInfo.findOne({ productname });
 
     if (productExist) {
-      console.log(productExist);
       try {
         if (productExist.totalprice && productExist.totalQuantity) {
           const totPrice =
@@ -62,7 +60,6 @@ const addStock = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log(err);
     res.status(400).send(err);
   }
 };
@@ -80,15 +77,11 @@ const stocklist = async (req, res) => {
 //Delete the stock Prouduct
 const deleteProduct = async (req, res) => {
   const id = req.params.id;
-  console.log(req.user.id,"user id ....................")
   const findproduct= await StockInfo.findById({_id:id})
-  console.log(findproduct);
   try {
-    console.log(findproduct.user,"user sucesss...................")
-    console.log(findproduct.user.toString()===req.user.id,"true.........................")
+   
     if(req.user.id === findproduct.user.toString()){
       const stock = await StockInfo.deleteOne({ _id: id });
-    console.log(stock);
     res.status(201).send("deletee successfully");
     }
     

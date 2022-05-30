@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerUser, authUser } = require("../controllers/user.controller");
+const { registerUser, authUser,updateUser } = require("../controllers/user.controller");
 const {
   addStock,
   stocklist,
@@ -18,5 +18,7 @@ router.get("/stockinfo", protect, stocklist);
 router.delete("/deletestock/:id", protect,deleteProduct);
 router.post("/orderplaced",protect, receivedorder);
 router.get("/orderlist", protect,customerinfo);
+router.get("/updateuser", protect,updateUser);
+
 
 module.exports = router;

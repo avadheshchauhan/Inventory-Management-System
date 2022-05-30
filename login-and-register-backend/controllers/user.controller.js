@@ -32,7 +32,6 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const authUser = asyncHandler(async (req, res) => {
-  console.log("click");
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -49,4 +48,23 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser };
+const updateUser = async(req,res)=>{
+  const {email,fullname,gender,mobileNo,address}=req.body
+  const user ={
+    fullname:fullname,
+    email:email,
+    mobileNo:mobileNo,
+    gender:gender,
+    address:address
+}
+  const findOne=await User.findOne({email:email})
+  if(findOne.id===req.user.id){
+    await User.updateOne({email:email},{$set:user})
+    res.status(201).send({msg:"user updated Succesfully"})
+  }else{
+    res.status(401).send({msg:"user is not verifies"})
+  }
+
+}
+
+module.exports = { registerUser, authUser,updateUser };

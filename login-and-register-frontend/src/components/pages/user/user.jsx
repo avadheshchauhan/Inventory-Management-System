@@ -11,7 +11,7 @@ const User = () => {
         email: "",
         address: "",
         mobileNo: "",
-        phoneNo: "",
+        gender: "",
         //uploadedfile:null
         
     })
@@ -81,9 +81,7 @@ const User = () => {
         <div className={style.form}>
             <form  className={style.bodyform} >
                 <Typography variant="h3">My Profile</Typography>
-                <div className={style.img}>
-                <img src=""></img>
-                </div>
+               
                 <label>Full Name</label>
                 <TextField id="outlined-fullname"
                     label="Full Name"
@@ -95,16 +93,17 @@ const User = () => {
                     required sx={{ marginBottom: "10px" }}
                     fullWidth placeholder="Enter your Full Name"
                     variant="outlined" />
-                <label > PhoneNumber</label>
+                    
+                <label >Gender</label>
                 <TextField id="outlined-fullname"
-                    label="PhoneNumber"
-                    name="phoneNo"
+                    label="Gender"
+                    name="gender"
                    // value={user.phoneNo}
                     type="text"
                     onChange={onchangeHandler}
                     color="secondary"
                     required sx={{ marginBottom: "10px" }}
-                    fullWidth placeholder="Enter your phoneNo"
+                    fullWidth placeholder="Enter your Gender"
                     variant="outlined" />
                 <label >MobileNo</label>
                 <TextField id="outlined-fullname"
@@ -139,10 +138,7 @@ const User = () => {
                     required sx={{ marginBottom: "10px" }}
                     fullWidth placeholder="Enter your Address"
                     variant="outlined" />
-                <label>Profile Image</label>
-                <div>
-                <input type="file"     name="uploadfile"/>
-                </div>
+                <label></label>
 
                 <Button size="large" sx={{ marginTop: "20px" }}   variant="contained">UpdateProfile</Button>
             </form>

@@ -3,6 +3,8 @@ import axios from "axios";
 import { Outlet, useNavigate } from "react-router-dom";
 const useUser = () => {
   const [userinfo, setUserinfo] = useState();
+  const token = localStorage.getItem("token");
+
   let navigate = useNavigate();
   const registeruser = (newuser) => {
     try {
@@ -42,7 +44,18 @@ const useUser = () => {
       // setLoading(false)
     }
   };
-  return { registeruser, userinfo, authUser };
+  const updateUser=()=>{
+
+    const userProfile= async (user)=>{
+      const userinfo= await axios.post("http://localhost:5000/updateuser",user,{
+        headers: { authorization: `${token}`}
+      })
+
+    }
+   userProfile()
+
+  }
+  return { registeruser, userinfo, authUser ,updateUser};
 };
 
 export default useUser;
