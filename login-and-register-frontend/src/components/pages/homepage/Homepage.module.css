@@ -1,0 +1,47 @@
+.main{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.containerLeft{
+    margin-top: 50px;
+    margin-left: 75px;
+    text-align: left;
+}
+
+.containerRight{
+    margin-top: 50px;
+}
+
+.vision{
+    color: #05b384;
+    font-weight: 700 !important;
+    font-size: 4rem;
+}
+
+.into{
+    font-weight: 400;
+    color: grey;
+    margin-top: 32px !important;
+}
+
+.registerBtn{
+    background: #05b384 !important;
+    margin-top: 20px !important;
+}
+
+.registerBtn:hover{
+    background: #05b384;
+}
+
+.links{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.links:hover{
+    text-decoration: none;
+    color: #ffffff;
+}

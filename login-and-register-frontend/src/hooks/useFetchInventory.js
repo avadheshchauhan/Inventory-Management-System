@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const useFetchInventory = () => {
   const [loading, setLoading] = useState(false);
@@ -7,7 +7,7 @@ const useFetchInventory = () => {
   const [error, setError] = useState(null);
   const [getproduct, setGetproduct] = useState(false);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   //getting the stock information
   useEffect(() => {
@@ -15,20 +15,19 @@ const useFetchInventory = () => {
     try {
       console.log(token);
       const fetchData = async () => {
-        const res = await axios.get("http://localhost:5000/stockinfo", {
+        const res = await axios.get('http://localhost:5000/stockinfo', {
           headers: { authorization: `${token}` },
         });
         console.log(res);
-        if(res.status===201){
+        if (res.status === 201) {
           setData(res.data);
-          console.log(data, "......");
+          console.log(data, '......');
           setLoading(false);
         }
-        
       };
       fetchData();
     } catch (error) {
-      console.error("Error: ", error.message);
+      console.error('Error: ', error.message);
       setError(error.message);
       setLoading(false);
     }
@@ -41,16 +40,19 @@ const useFetchInventory = () => {
     //   setLoading(true)
     try {
       const fetchData = async () => {
-        const res= await axios.post("http://localhost:5000/addstock", product, {
-          headers: { authorization: `${token}` },
-        });
-        console.log(res)
+        const res = await axios.post(
+          'http://localhost:5000/addstock',
+          product,
+          {
+            headers: { authorization: `${token}` },
+          }
+        );
+        console.log(res);
         //   if(res.success){
-          console.log( res.status)
+        console.log(res.status);
         // const newData = [...data];
-        if(res.status===201){
+        if (res.status === 201) {
           setGetproduct((prev) => !prev);
-
         }
         // newData.push(product);
         // setData(newData);
@@ -59,7 +61,7 @@ const useFetchInventory = () => {
       };
       fetchData();
     } catch (error) {
-      console.error("Error: ", error.message);
+      console.error('Error: ', error.message);
       setError(error.message);
       // setLoading(false)
     }
@@ -71,20 +73,20 @@ const useFetchInventory = () => {
       const fetchData = async (e) => {
         const id = data[index]._id;
         const res = await axios.delete(
-          `http://localhost:5000/deletestock/${id}`,{
-            headers: { authorization: `${token}` }
+          `http://localhost:5000/deletestock/${id}`,
+          {
+            headers: { authorization: `${token}` },
           }
         );
-        if(res.status===201){
+        if (res.status === 201) {
           const filter = [...data];
           filter.splice(index, 1);
           setData(filter);
         }
-        
       };
       fetchData();
     } catch (error) {
-      console.error("Error: ", error.message);
+      console.error('Error: ', error.message);
       setError(error.message);
     }
   };

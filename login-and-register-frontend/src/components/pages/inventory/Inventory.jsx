@@ -1,19 +1,17 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useState } from "react";
-import axios from "axios";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import useFetchInventory from "../../../hooks/useFetchInventory";
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import useFetchInventory from '../../../hooks/useFetchInventory';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -26,20 +24,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
+  '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  "&:last-child td, &:last-child th": {
+  '&:last-child td, &:last-child th': {
     border: 0,
   },
 }));
 
 const Inventory = () => {
   const [product, setProduct] = useState({
-    productname: "",
-    quantity: "",
-    price: "",
+    productname: '',
+    quantity: '',
+    price: '',
   });
 
   const { loading, data, error, addProduct, deleteProduct } =
@@ -52,16 +50,16 @@ const Inventory = () => {
       [name]: value,
     });
   };
-console.log(data,"💕💕💕");
+  console.log(data, '💕💕💕');
   //adding the stockHandler
   const addProductHandler = (e) => {
     console.log(product);
     e.preventDefault();
     addProduct(product);
     setProduct({
-      productname: "",
-      quantity: "",
-      price: "",
+      productname: '',
+      quantity: '',
+      price: '',
     });
   };
 

@@ -14,8 +14,21 @@
     border:2px solid whitesmoke;
     border-radius:10px;
     width:400px;
-    height:420px;
+    height:450px;
     background-color:white;
     justify-content: center;
     align-items: center;
+}
+
+.inputField{
+    margin-bottom: 10px;
+}
+
+.errorMsg{
+    color: red;
+}
+
+.registerBtn{
+    background: #05b384 !important;
+    margin-top: 20px !important;
 }

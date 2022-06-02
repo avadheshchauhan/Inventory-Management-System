@@ -1,6 +1,6 @@
 # dependencies
-backend/node_modules
-frontend/node_modules
+login-and-register-backend/node_modules
+login-and-register-frontend/node_modules
 /.png
 .png.js
 
@@ -12,7 +12,7 @@ frontend/node_modules
 
 #misc
 .DS_Store
-.env
+# .env
 .env.local
 .env.development.local
 .env.test.local

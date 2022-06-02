@@ -1,0 +1,36 @@
+body{
+    background-color: #ffffff;
+}
+
+.header{
+    background-color: #ffffff !important;
+}
+
+.icon{
+    color: #05b384
+}
+
+.iconText{
+    color: #000000;
+    font-weight: 800 !important;
+}
+
+.links{
+    text-decoration: none !important;
+    color: #000000 !important;
+}
+
+.loginBtn{
+    background: #ffffff !important;
+    margin-left: auto !important;
+}
+
+.logoutBtn{
+    background: #05b384 !important;
+    margin-left: auto !important;
+}
+
+.registerBtn{
+    background: #05b384 !important;
+    margin-left: 10px !important;
+}

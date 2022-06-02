@@ -1,17 +1,14 @@
-import { Button, TextField, Typography } from "@mui/material";
-import style from "./Loginpage.module.css";
-import { useState } from "react";
-import axios from "axios";
-import { Outlet, useNavigate } from "react-router-dom";
-import useUser from "../../../hooks/useUser";
+import { Button, TextField, Typography } from '@mui/material';
+import styles from './Loginpage.module.css';
+import { useState } from 'react';
+import useUser from '../../../hooks/useUser';
 
 const LoginPage = ({ setUser }) => {
-  let navigate = useNavigate();
   const { authUser } = useUser();
   const [error, setError] = useState();
   const [loginuser, setLoginuser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const onchangeHandler = (e) => {
@@ -33,10 +30,10 @@ const LoginPage = ({ setUser }) => {
   return (
     <>
       <form
-        className={style.route}
+        className={styles.route}
         onSubmit={(e) => loginHandler(loginuser, e)}
       >
-        <div className={style.form}>
+        <div className={styles.form}>
           <Typography variant="h3">Login</Typography>
           <br />
           <TextField
@@ -47,11 +44,10 @@ const LoginPage = ({ setUser }) => {
             name="email"
             value={loginuser.email}
             onChange={onchangeHandler}
-            placeholder="Enter your EmailId"
             fullWidth
             variant="outlined"
             required
-          />{" "}
+          />{' '}
           <br />
           <br />
           <TextField
@@ -62,23 +58,22 @@ const LoginPage = ({ setUser }) => {
             name="password"
             value={loginuser.password}
             onChange={onchangeHandler}
-            placeholder="Enter your password"
             fullWidth
             variant="outlined"
             required
-          />{" "}
+          />{' '}
           <br />
           <Button
             size="large"
-            sx={{ marginTop: "20px" }}
+            sx={{ marginTop: '20px' }}
             type="submit"
             variant="contained"
+            className={styles.loginBtn}
           >
             Login
           </Button>
           <p>{error}</p>
         </div>
-        <input/>
       </form>
       {console.log(loginuser)}
     </>
