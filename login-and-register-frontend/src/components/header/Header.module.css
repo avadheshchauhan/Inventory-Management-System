@@ -1,13 +1,14 @@
 body{
-    background-color: #ffffff;
+ /* background-color: #ffffff; */
 }
 
 .header{
-    background-color: #ffffff !important;
+    background-color: #3caea3 !important;
 }
 
 .icon{
-    color: #05b384
+    color: #3caea3 !important;
+    
 }
 
 .iconText{
@@ -17,7 +18,7 @@ body{
 
 .links{
     text-decoration: none !important;
-    color: #000000 !important;
+    color:black !important;
 }
 
 .loginBtn{

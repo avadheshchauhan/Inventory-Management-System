@@ -2,6 +2,8 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const gererateToken = require("../util/generateToken");
 
+
+//to register the user
 const registerUser = asyncHandler(async (req, res) => {
   const { fullname, email, password } = req.body;
   console.log(req.body);
@@ -34,7 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-
+try{
   if (email && (await user.matchPassword(password))) {
     res.status(201).json({
       _id: user._id,
@@ -42,9 +44,20 @@ const authUser = asyncHandler(async (req, res) => {
       email: user.email,
       token: gererateToken(user._id),
     });
-  } else {
-    res.status(400);
-    throw new Error("Invalid Email or Password!!");
+  } 
+  else {
+    console.log("er.........msg")
+    return res.status(401).send({ message: "Invalid Email or Password" });
+    // res.status(400)
+    // throw new Error("Invalid Email or Password!!");
+  }
+}
+  catch (err){
+       
+       res.status(500).send({ message: "Internal Server Error" });
+       console.log('internal ')
+       throw new Error("server error");
+
   }
 });
 

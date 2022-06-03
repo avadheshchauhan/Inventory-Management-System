@@ -10,6 +10,7 @@ const receivedorder = async (req, res) => {
     const productExist = await StockInfo.findOne({
       productname: req.body.ordetails.productName,
     });
+    console.log(req.body)
     if (productExist) {
       try {
         const orderreceived = await OrderDetails.create({

@@ -7,7 +7,7 @@ const useOrder = () => {
   const token = localStorage.getItem('token');
 
   const order = (ordetails, price, quantity) => {
-    /* try {
+     try {
       const fetchData = async () => {
         const res = await axios.post(
           'http://localhost:5000/orderplaced',
@@ -18,18 +18,18 @@ const useOrder = () => {
           },
           { headers: { authorization: `${token}` } }
         );
-        //  if(res.status===201){
-        //      setStatus(true)
-        //  }
-        // setCustomerDetails(res.data);
+          if(res.status===201){
+              //setStatus(true)
+          }
+         setCustomerDetails(res.data);
       };
       fetchData();
-      //setStatus(false)
+     // setStatus(false)
     } catch (error) {
       console.error('Error: ', error.message);
-      // setError(error.message)
-      // setLoading(false)
-    } */
+     //setError(error.message)
+     //setLoading(false)
+    } 
   };
   //
   useEffect(() => {

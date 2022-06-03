@@ -5,15 +5,16 @@ import {
   Grid,
   TextField,
   Typography,
-} from '@mui/material';
-import { useState } from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import useFetchInventory from '../../../hooks/useFetchInventory';
-import useOrder from '../../../hooks/useOrder';
+} from "@mui/material";
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import useFetchInventory from "../../../hooks/useFetchInventory";
+import useOrder from "../../../hooks/useOrder";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -26,28 +27,20 @@ const MenuProps = {
   },
 };
 
-// function getStyles(name, prodName, theme) {
-//   return {
-//     fontWeight:
-//       prodName.indexOf(name) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
 
 const Order = () => {
-  // const [prodName, setprodName] = useState();
-  const [price, setPrice] = useState();
-  const [quantity, setQuantity] = useState();
-  const [error, setError] = useState();
-  const [ordetails, setOrdetails] = useState({
-    firstname: '',
-    lastname: '',
-    date: '',
-    email: '',
-    phoneno: '',
-    address: '',
-    productName: '',
+  const theme = useTheme();
+  const [price, setPrice] = React.useState();
+  const [quantity, setQuantity] = React.useState();
+  const [error, setError] = React.useState();
+  const [ordetails, setOrdetails] = React.useState({
+    firstname: "",
+    lastname: "",
+    date: "",
+    email: "",
+    phoneno: "",
+    address: "",
+    productName: "",
   });
 
   const { data } = useFetchInventory();
@@ -56,30 +49,21 @@ const Order = () => {
   const quantityHandleChange = (e) => {
     setQuantity(e.target.value);
     console.log(e.target.value);
+    setError('')
     data.map((list) => {
-      {
-        if (
-          list.productname === ordetails.productName &&
-          e.target.value < list.totalQuantity
-        ) {
-          setPrice(list.price * e.target.value);
-          setError(' ');
-        } else {
-          setError('out of stock');
-          console.log('out of stock');
-        }
+      if (
+        list.productname === ordetails.productName &&
+        e.target.value < list.totalQuantity
+      ) {
+        setPrice(list.price * e.target.value);
+        setError(" ");
+      } else {
+        setError("out of stock");
+        console.log("out of stock");
       }
     });
   };
-  // console.log(price, quantity, "..........................................");
-  //getting list of product
-
-  // const handleChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setprodName(value);
-  // };
+  
 
   const orderHandleChange = (e) => {
     const { name, value } = e.target;
@@ -95,23 +79,23 @@ const Order = () => {
 
     order(ordetails, price, quantity);
     setOrdetails({
-      firstname: '',
-      lastname: '',
-      date: '',
-      email: '',
-      phoneno: '',
-      address: '',
-      productName: '',
+      firstname: "",
+      lastname: "",
+      date: "",
+      email: "",
+      phoneno: "",
+      address: "",
+      productName: "",
     });
-    setPrice('');
-    setQuantity('');
+    setPrice("");
+    setQuantity("");
   };
 
   return (
     <div>
       {/* // {status ?} */}
       <Grid>
-        <Card style={{ padding: '20px 5px', margin: '0 auto' }}>
+        <Card style={{ padding: "20px 5px", margin: "0 auto" }}>
           <CardContent>
             <Typography gutterBottom variant="h5">
               Order Details
@@ -178,7 +162,7 @@ const Order = () => {
                     name="date"
                     value={ordetails.date}
                     onChange={orderHandleChange}
-                    // label="Date"
+                    label="Date"
                     variant="outlined"
                     fullWidth
                     required
@@ -205,7 +189,7 @@ const Order = () => {
                     <Select
                       labelId="demo-multiple-name-label"
                       id="demo-multiple-name"
-                      name="product Name"
+                      name="productName"
                       value={ordetails.productName}
                       onChange={orderHandleChange}
                       input={<OutlinedInput label="Name" />}
@@ -233,8 +217,8 @@ const Order = () => {
                     fullWidth
                     required
                   />
-                  <small>{error}</small>
-                </Grid>
+                  {/* <small>{error}</small> */}
+            </Grid>
                 <Grid item xs={12}>
                   <TextField
                     label="Total Price"
